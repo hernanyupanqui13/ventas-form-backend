@@ -15,3 +15,16 @@ submitBtn.addEventListener("click", event => {
   console.log("form submitted");
   //document.forms[0].reset();
 });
+
+// Init Plugins
+$(document).ready(() => {
+
+  $("#cantidad-pacientes").TouchSpin({
+    min: 0,
+    max: 100,
+    boostat: 5,
+    maxboostedstep: 10,
+  });
+
+});
+

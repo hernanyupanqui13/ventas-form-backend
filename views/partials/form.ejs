@@ -63,19 +63,27 @@
             <div class="col">
               <div class="mb-3">
                 <label for="cantidad-pacientes" class="form-label">Cantidad de Pacientes</label>
-                <input type="number" class="form-control" id="cantidad-pacientes" name="cantidad-pacientes">
+                <div style="width: 200px;">
+                  <input type="text" class="form-control text-center" id="cantidad-pacientes" name="cantidad-pacientes">
+                </div>
               </div>
             </div>
           </div>
           <div class="row">
-            <div class="col">
+            <div class="col-auto">
               <div class="mb-3">
                 <label for="tipo-prueba" class="form-label">Tipo de Prueba</label>
-                <input type="text" class="form-control" id="tipo-prueba" name="tipo-prueba">
+                <select class="form-select" name="tipo-prueba" id="tipo-prueba" aria-label="Seleccionar el tipo de prueba">
+                  <option selected>Eliga una opción</option>
+                  <option value="1">Prueba Molecular</option>
+                  <option value="2">Prueba de Antígeno</option>
+                  <option value="3">Prueba Serológica Cuantitativa (CLIA)</option>
+                  <option value="4">Prueba Rápida de Anticuerpos</option>
+                </select>
               </div>
             </div>
           </div>
-          <h2>Informacion del Paciente</h2>
+          <h2>Información del Paciente</h2>
           
           <div class="row">
             <div class="col-auto col">
@@ -86,6 +94,7 @@
                   type="text"
                   id="dni-pacient-input"
                   class="form-control"
+                  name="dni-pacient-input"
                 />
               </div>
             </div>
@@ -98,6 +107,7 @@
                   placeholder="Ingrese la información del paciente"
                   type="text"
                   id="nombres-paciente-input"
+                  name="nombres-paciente"
                   class="form-control"
                 />
               </div>
@@ -110,6 +120,7 @@
                   placeholder="Ingrese la información del paciente"
                   type="text"
                   id="apellido-pat-paciente-input"
+                  name="apellido-pat-paciente"
                   class="form-control"
                 />
               </div>
@@ -122,6 +133,7 @@
                   placeholder="Ingrese la información del paciente"
                   type="text"
                   id="apellido-mat-paciente-input"
+                  name="apellido-mat-paciente"
                   class="form-control"
                 />
               </div>
@@ -130,8 +142,8 @@
           <div class="row">
             <div class="col">
               <div class="mb-3">
-                <label for="tipo-prueba" class="form-label">Envío de resultados</label>
-                <input type="text" class="form-control" id="tipo-prueba" placeholder="Correo o Whatsapp" name="tipo-prueba">
+                <label for="envio-resultados" class="form-label">Envío de resultados</label>
+                <input type="text" class="form-control" id="envio-resultados" placeholder="Correo o Whatsapp" name="envio-resultados">
               </div>
             </div>
             <div class="col">
