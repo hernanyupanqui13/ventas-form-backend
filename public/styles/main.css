@@ -1,0 +1,18 @@
+@import url(banner.css);
+
+.form-container, .banner-container {
+  height: 97.93vh;
+  box-sizing:border-box !important;
+}
+
+.form-container {
+  overflow: scroll;
+}
+
+.banner-container {
+  overflow: hidden;
+}
+
+.final-btn-container button {
+  width: 200px;
+}

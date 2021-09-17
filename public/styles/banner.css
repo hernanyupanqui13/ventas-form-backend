@@ -1,0 +1,8 @@
+.banner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  justify-items: center;
+  background-color: #E0E0E0 ;
+}
