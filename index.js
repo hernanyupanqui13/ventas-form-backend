@@ -23,11 +23,11 @@ app.use(router);
 
 
 const corsOptions = {
-  origin: "https://peaceful-headland-60459.herokuapp.com/",
+  origin: "https://floating-beyond-72640.herokuapp.com/",
   optionsSuccessStatus: 200
 };
 
-//app.use(cors(corsOptions));
+app.use(cors(corsOptions));
 
 
 const options = {
