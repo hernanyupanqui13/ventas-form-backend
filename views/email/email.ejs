@@ -1,0 +1,98 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Respuesta Registrada - InnoForms</title>
+  <meta name="description" content="Respuesta Registrada - InnoForms">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <%- include("./styles.ejs") %>
+  
+</head>
+
+<body class="email-body">
+
+  <div class="header-email">
+    <!-- <img src="https://intranetinnomedic.s3.us-east-2.amazonaws.com/public/assets/images/email/comunicado-header.png" alt="Header Innomedic Message" class="header-banner"> -->
+    <h1>Respuestas registradas</h1>
+  </div>
+
+  <div class="main-email">
+    <p><strong class="strong-1 start-email" >Estimados,</strong></p>
+    
+    <p>La siguiente información ha sido registrada en el formulario: </p>
+
+    <table>
+      <thead>
+        <th>Pregunta</th>
+        <th>Respuesta</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            Nombre del Contacto
+          </td>
+          <td><%= formAnswer.personaContacto.name %> </td>
+        </tr>
+        <tr>
+          <td>Telefono del Contacto</td>
+          <td><%= formAnswer.personaContacto.phoneNumber %></td>
+        </tr>
+        <tr>
+          <td>Distrito</td>
+          <td><%= formAnswer.personaContacto.district %> </td>
+        </tr>
+        <tr>
+          <td>Dirección y Referencia</td>
+          <td><%= formAnswer.personaContacto.addressAndReference %> </td>
+        </tr>
+        <tr>
+          <td>Cantidad de Pacientes</td>
+          <td><%= formAnswer.personaContacto.pacientQuantity %></td>
+        </tr>
+        <tr>
+          <td>Tipo de Examen</td>
+          <td><%= formAnswer.personaContacto.typeExam %> </td>
+        </tr>
+        <!-- Informacion del paciente -->
+        <tr>
+          <td>DNI del Paciente</td>
+          <td><%= formAnswer.pacientData.documentNumber %> </td>
+        </tr>
+        <tr>
+          <td>Nombre del Paciente</td>
+          <td><%= `${formAnswer.personaContacto.names} ${formAnswer.personaContacto.lastPaternalName} ${formAnswer.personaContacto.lastMaternalName}` %> </td>
+        </tr>
+        <tr>
+          <td>Enviar resultados a</td>
+          <td><%= formAnswer.pacientData.sendResults %></td>
+        </tr>
+        <tr>
+          <td>Hora del servicio</td>
+          <td><%= formAnswer.pacientData.serviceTime %></td>
+        </tr>
+        <!-- Facturación -->
+        <tr>
+          <td>Tipo de comprobante</td>
+          <td><%= formAnswer.billing.receiptType %></td>
+        </tr>
+        <tr>
+          <td>Banco</td>
+          <td><%= formAnswer.billing.bank %></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <br>
+    <p class="strong-2" >Saludos,</p>
+  
+    <p class="strong-1 end-email" >Equipo de TI</p>
+  </div>
+  <div class="footer-email">
+    <!-- <div class="footer-img-container"><img src="https://intranetinnomedic.s3.us-east-2.amazonaws.com/public/assets/images/email/footer-logo.png" alt="Footer Logo Innomedic"></div> -->
+  </div>  
+
+</body>
+</html>

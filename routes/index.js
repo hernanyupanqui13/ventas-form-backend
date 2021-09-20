@@ -5,7 +5,11 @@ const multer = require("multer");
 // Models
 const FormAnswer = require("../models/formAnswer");
 
+// Routes
 const apiRouter = require("./apiRouter");
+
+// Controllers 
+const formController = require("../controllers/form");
 
 const fileStorage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -24,49 +28,10 @@ router.use(multer({storage:fileStorage}).single("formFile"));
   res.sendFile(path.join(__dirname, '../frontend/build/index.html'));
 });*/
 
-router.get("/",(req,res,next) => {
-  res.render("ventas-form");
-});
+router.get("/", formController.getForm);
 
 
-router.post("/submit-data", (req, res, next) => {
-
-  const typeExams = [
-    "Prueba Molecular",
-    "Prueba de Antígeno",
-    "Prueba Serológica Cuantitativa (CLIA)",
-    "Prueba Rápida de Anticuerpos"
-  ];
-
-  console.log(req.body);
-  const formAnswer = new FormAnswer({
-    personaContacto: {
-      name: req.body["nombre-contacto"],
-      phoneNumber: req.body["celular-contacto"],
-      district: req.body.distrito,
-      addressAndReference: req.body["direccio-y-ref"],
-      pacientQuantity: req.body["cantidad-pacientes"],
-      typeExam: typeExams[req.body["tipo-prueba"]],
-    }, 
-    pacientData: {
-      documentNumber: req.body["dni-pacient-input"],
-      names: req.body["nombres-paciente-input"],
-      lastPaternalName: req.body["apellido-pat-paciente"],
-      lastMaternalName: req.body["apellido-mat-paciente"],
-      sendResults: req.body["envio-resultados"],
-      serviceTime: req.body["horario-servicio"]
-    },
-    billing: {
-      receiptPath: req.file.path,
-      receiptType: req.body["tipo-comprobante"],
-      bank: req.body["banco"]
-    }
-  });
-
-  formAnswer.save();
-  console.log(req.file);
-  res.redirect("/");
-});
+router.post("/submit-data", formController.processSubmit);
 
 
 module.exports = router;
