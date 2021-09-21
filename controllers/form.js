@@ -1,10 +1,39 @@
 const nodemailer = require("nodemailer");
 const path = require("path");
 const ejs = require("ejs");
+const sgTransporter = require("nodemailer-sendgrid-transport");
+require("dotenv").config({ path: path.join(__dirname , "..",".env")});
 
 
 // Models 
 const FormAnswer = require("../models/formAnswer");
+
+
+
+
+// Init Transporter 
+const transporter = nodemailer.createTransport(sgTransporter({
+  auth: {
+    api_key: "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"
+  },
+  service: 'SendGrid',
+}));
+
+// transporter.sendMail({
+//   to: "hernan.yupanqui.prieto@gmail.com",
+//   from: "sistemas.innomedic@gmail.com",
+//   subject: "TESTING",
+//   html: "<h1>tESTING AGAINS WORK PLEASE</h1>"
+// }, (err, info) => {
+//   if(err) {
+//     console.log(err, "errr");
+//   } else {
+//     console.log(info, "info");
+//   }
+// })
+
+
+
 
 exports.getForm = (req,res,next) => {
   res.render("ventas-form");
@@ -56,14 +85,14 @@ exports.processSubmit= async (req, res, next) => {
   ];
   const subject = "Respuestas Formulario";
 
-  const transporter = nodemailer.createTransport({
-    host:"smtp.gmail.com",
-    port:"465",
-    auth: {
-      user:"sistemas.innomedic@gmail.com",
-      pass:"s1st3m4s2411"
-    }
-  });
+  // const transporter = nodemailer.createTransport({
+  //   host:"smtp.gmail.com",
+  //   port:"465",
+  //   auth: {
+  //     user:"sistemas.innomedic@gmail.com",
+  //     pass:"s1st3m4s2411"
+  //   }
+  // });
 
   const p = path.join(
     path.dirname(process.mainModule.filename),
