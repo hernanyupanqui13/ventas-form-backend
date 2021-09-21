@@ -14,7 +14,7 @@ const FormAnswer = require("../models/formAnswer");
 // Init Transporter 
 const transporter = nodemailer.createTransport(sgTransporter({
   auth: {
-    api_key: "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"
+    api_key: process.env.SENDGRID_API_KEY
   },
   service: 'SendGrid',
 }));
