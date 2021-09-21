@@ -43,7 +43,7 @@ exports.processSubmit= async (req, res, next) => {
       district: req.body.distrito,
       addressAndReference: req.body["direccio-y-ref"],
       pacientQuantity: req.body["cantidad-pacientes"],
-      typeExam: typeExams[req.body["tipo-prueba"]],
+      typeExam: typeExams[req.body["tipo-prueba"]-1],
     }, 
     pacientData: {
       documentNumber: req.body["dni-pacient-input"],
