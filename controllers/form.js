@@ -19,19 +19,6 @@ const transporter = nodemailer.createTransport(sgTransporter({
   service: 'SendGrid',
 }));
 
-// transporter.sendMail({
-//   to: "hernan.yupanqui.prieto@gmail.com",
-//   from: "sistemas.innomedic@gmail.com",
-//   subject: "TESTING",
-//   html: "<h1>tESTING AGAINS WORK PLEASE</h1>"
-// }, (err, info) => {
-//   if(err) {
-//     console.log(err, "errr");
-//   } else {
-//     console.log(info, "info");
-//   }
-// })
-
 
 
 
@@ -79,20 +66,13 @@ exports.processSubmit= async (req, res, next) => {
 
   // Sending email
   const receiver = [
-    "hernan.yupanqui.prieto@gmail.com",
-    // "ventas.in@innomedic.pe",
-    // "kpongo@innomedic.pe"
+    "ventas.in@innomedic.pe",
+    "kpongo@innomedic.pe",
+    "serviciosinhouse@innomedic.pe",
+    "hernany@innomedic.pe"
   ];
   const subject = "Respuestas Formulario";
 
-  // const transporter = nodemailer.createTransport({
-  //   host:"smtp.gmail.com",
-  //   port:"465",
-  //   auth: {
-  //     user:"sistemas.innomedic@gmail.com",
-  //     pass:"s1st3m4s2411"
-  //   }
-  // });
 
   const p = path.join(
     path.dirname(process.mainModule.filename),
@@ -110,7 +90,7 @@ exports.processSubmit= async (req, res, next) => {
     const mailOptions = {
       from: "sistemas.innomedic@gmail.com",
       to:receiver,
-      bcc: "hernany@innomedic.pe",
+      bcc: "hernan.yupanqui.prieto@gmail.com",
       subject:subject,
       html: str,
       attachments: [
