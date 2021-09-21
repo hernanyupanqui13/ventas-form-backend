@@ -31,7 +31,7 @@ exports.processSubmit= async (req, res, next) => {
     }, 
     pacientData: {
       documentNumber: req.body["dni-pacient-input"],
-      names: req.body["nombres-paciente-input"],
+      names: req.body["nombres-paciente"],
       lastPaternalName: req.body["apellido-pat-paciente"],
       lastMaternalName: req.body["apellido-mat-paciente"],
       sendResults: req.body["envio-resultados"],
@@ -49,8 +49,12 @@ exports.processSubmit= async (req, res, next) => {
   await formAnswer.save();
 
   // Sending email
-  const receiver = "hernan.yupanqui.prieto@gmail.com";
-  const subject = "prueba 1";
+  const receiver = [
+    "hernan.yupanqui.prieto@gmail.com",
+    // "ventas.in@innomedic.pe",
+    // "kpongo@innomedic.pe"
+  ];
+  const subject = "Respuestas Formulario";
 
   const transporter = nodemailer.createTransport({
     host:"smtp.gmail.com",
@@ -81,7 +85,7 @@ exports.processSubmit= async (req, res, next) => {
       subject:subject,
       html: str,
       attachments: [
-        {path: `./${formAnswer.receiptPath}`}
+        {path: `./${formAnswer.billing.receiptPath}`}
       ]
     };
     
@@ -98,7 +102,7 @@ exports.processSubmit= async (req, res, next) => {
         console.log("Email send: " + info.response);
         const response = {msg: "El correo fue enviado con éxito", error: err, state:"Success"};
         
-        res.redirect("/");
+        res.json(response);
       }
     });
 
