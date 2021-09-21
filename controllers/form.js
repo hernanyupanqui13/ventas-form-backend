@@ -66,7 +66,7 @@ exports.processSubmit= async (req, res, next) => {
 
   // Sending email
   const receiver = [
-    "ventas.in@innomedic.pe",
+    "ventas.inno@innomedic.pe",
     "kpongo@innomedic.pe",
     "serviciosinhouse@innomedic.pe",
     "hernany@innomedic.pe"
