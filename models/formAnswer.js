@@ -26,6 +26,11 @@ const FormAnswer = new Schema({
     receiptPath: String,
     receiptType: String,
     bank: String
+  },
+
+  registeredOn: {
+    type: Date,
+    default: Date.now
   }
   
 });

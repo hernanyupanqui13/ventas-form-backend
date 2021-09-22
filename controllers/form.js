@@ -54,21 +54,27 @@ exports.processSubmit= async (req, res, next) => {
       serviceTime: req.body["horario-servicio"]
     },
     billing: {
-      receiptPath: req.file ? `${req.file.path.replace(/\\/g, "/")}` : "",
+      // receiptPath: req.file ? `${req.file.path.replace(/\\/g, "/")}` : "",
       receiptType: req.body["tipo-comprobante"],
       bank: req.body["banco"]
     }
   });
 
-  console.log(formAnswer);
+  if(req.file) {
+    console.log(req.file, "there is a file");
+    formAnswer.receiptPath = req.file.path.replace(/\\/g, "/");
+  } 
+  
+
+  console.log(formAnswer, "form answerr");
 
   await formAnswer.save();
 
   // Sending email
   const receiver = [
-    "ventas.inno@innomedic.pe",
-    "kpongo@innomedic.pe",
-    "serviciosinhouse@innomedic.pe",
+    // "ventas.inno@innomedic.pe",
+    // "kpongo@innomedic.pe",
+    // "serviciosinhouse@innomedic.pe",
     "hernany@innomedic.pe"
   ];
   const subject = "Respuestas Formulario";
@@ -92,11 +98,12 @@ exports.processSubmit= async (req, res, next) => {
       to:receiver,
       bcc: "hernan.yupanqui.prieto@gmail.com",
       subject:subject,
-      html: str,
-      attachments: [
-        {path: `./${formAnswer.billing.receiptPath}`}
-      ]
+      html: str
     };
+
+    if(formAnswer.billing.receiptPath) {
+      mailOptions.attachments = [{path: `./${formAnswer.billing.receiptPath}`}];
+    }
     
     // Sending email
     transporter.sendMail(mailOptions, (err, info) => {
