@@ -50,5 +50,31 @@ $(document).ready(() => {
 
 });
 
+document.querySelector("#add-file-btn").addEventListener("click", event => {
+  addFileInput();
+});
 
+function addFileInput() {
+  const inputFileContainer = document.querySelector(".files-input-container");
+  const htmlElement = document.createElement("div");
+  
+  htmlElement.innerHTML = `
+    <label class="form-label" for="formFile">
+      Adjunte el comprobante de pago
+    </label>
+    <input type="file" name="formFile[]" class="form-control file-input" />
+    <button type="button" onclick="handleRemove(event)" class="btn btn-outline-danger">Quitar</button>
 
+  `;
+
+  inputFileContainer.append(htmlElement);
+  
+}
+function handleRemove(event) {
+  removeFileInput(event.target);
+}
+
+function removeFileInput(target) {
+  console.log(target.parentElement);
+  target.parentElement.remove();
+}
