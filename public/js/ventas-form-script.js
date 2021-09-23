@@ -57,13 +57,16 @@ document.querySelector("#add-file-btn").addEventListener("click", event => {
 function addFileInput() {
   const inputFileContainer = document.querySelector(".files-input-container");
   const htmlElement = document.createElement("div");
+  htmlElement.classList.add("mb-2")
   
   htmlElement.innerHTML = `
     <label class="form-label" for="formFile">
-      Adjunte el comprobante de pago
+      Adjunte el otro archivo
     </label>
-    <input type="file" name="formFile[]" class="form-control file-input" />
-    <button type="button" onclick="handleRemove(event)" class="btn btn-outline-danger">Quitar</button>
+    <div class="d-flex flex-row align-items-start">
+      <input type="file" name="formFile[]" class="form-control file-input" />
+      <button type="button" onclick="handleRemove(event)" class="btn btn-outline-danger ms-1">Quitar</button>
+    </div>
 
   `;
 
@@ -76,5 +79,5 @@ function handleRemove(event) {
 
 function removeFileInput(target) {
   console.log(target.parentElement);
-  target.parentElement.remove();
+  target.parentElement.parentElement.remove();
 }

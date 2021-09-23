@@ -185,15 +185,14 @@
           <hr>
           <div class="row">
             <div class="col-md-6">
-              <div class="files-input-container">
-                <div class="mb-2">
-                  <label class="form-label" for="formFile"
-                    >Adjunte el comprobante de pago</label
-                  ><input type="file" id="formFile" name="formFile" class="form-control file-input" />
+              <div class="mb-3">
+                <label class="form-label" for="formFile">
+                  Adjunte el comprobante de pago
+                </label>
+                <div class="d-flex flex-row align-items-start">
+                  <input type="file" id="formFile" name="formFile" class="form-control file-input" />
                 </div>
               </div>
-              <button type="button" id="add-file-btn" class="btn btn-outline-secondary">Añadir archivo</button>
-
             </div>
             <div class="col-md-6">
               <div class="mb-3">
@@ -218,10 +217,16 @@
                 </div>
               </div>
             </div>
+
+            <div class="row">
+              <div class="files-input-container">
+              <!-- All the list of file inputs -->
+              </div>
+            </div>
           </div>
-          <div class="row">
+          <div class="row mt-2 mb-4">
             <div class="col">
-              <button type="button" class="btn btn-outline-secondary">Añadir archivo</button>
+              <button type="button" id="add-file-btn" class="btn btn-outline-secondary ms-1" style="min-width: fit-content;">+ Archivo</button>
             </div>
           </div>
           <div class="row">
