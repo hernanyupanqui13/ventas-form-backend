@@ -32,6 +32,13 @@
       <tbody>
         <tr>
           <td>
+            Fecha del servicio
+          </td>
+          
+          <td><%= `${formAnswer.serviceDate.getDate()}/${formAnswer.serviceDate.getMonth() + 1}/${formAnswer.serviceDate.getFullYear()}` %> </td>
+        </tr>
+        <tr>
+          <td>
             Nombre del Contacto
           </td>
           <td><%= formAnswer.personaContacto.name %> </td>
