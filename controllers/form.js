@@ -54,15 +54,17 @@ exports.processSubmit= async (req, res, next) => {
       serviceTime: req.body["horario-servicio"]
     },
     billing: {
-      // receiptPath: req.file ? `${req.file.path.replace(/\\/g, "/")}` : "",
       receiptType: req.body["tipo-comprobante"],
       bank: req.body["banco"]
-    }
+    },
+    // Here we are adding the 5 hours of the timezone in Peru. That stores the datetime in UTC on database. 
+    //This is to avoid sustracting 5 hours of the date when we make requests 
+    serviceDate: new Date( Date.parse(req.body["service-date"]) + 5*60*60*1000)
   });
 
   if(req.file) {
     console.log(req.file, "there is a file");
-    formAnswer.receiptPath = req.file.path.replace(/\\/g, "/");
+    formAnswer.billing.receiptPath = req.file.path.replace(/\\/g, "/");
   } 
   
 
@@ -72,9 +74,9 @@ exports.processSubmit= async (req, res, next) => {
 
   // Sending email
   const receiver = [
-    "ventas.inno@innomedic.pe",
-    "kpongo@innomedic.pe",
-    "serviciosinhouse@innomedic.pe",
+    // "ventas.inno@innomedic.pe",
+    // "kpongo@innomedic.pe",
+    // "serviciosinhouse@innomedic.pe",
     "hernany@innomedic.pe"
   ];
   const subject = "Respuestas Formulario";
@@ -104,6 +106,8 @@ exports.processSubmit= async (req, res, next) => {
     if(formAnswer.billing.receiptPath) {
       mailOptions.attachments = [{path: `./${formAnswer.billing.receiptPath}`}];
     }
+
+    console.log(mailOptions); 
     
     // Sending email
     transporter.sendMail(mailOptions, (err, info) => {
@@ -118,7 +122,7 @@ exports.processSubmit= async (req, res, next) => {
         console.log("Email send: " + info.response);
         const response = {msg: "El correo fue enviado con éxito", error: err, state:"Success"};
         
-        res.json(response);
+        res.json(formAnswer);
       }
     });
 

@@ -28,6 +28,11 @@ const FormAnswer = new Schema({
     bank: String
   },
 
+  serviceDate: {
+    type: Date,
+    required: true
+  },
+  
   registeredOn: {
     type: Date,
     default: Date.now
