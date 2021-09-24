@@ -35,7 +35,7 @@ mainForm.addEventListener("submit", async event => {
 
   await new AWN(options).asyncBlock(promise)
 
-  mainForm.reset();
+  //mainForm.reset();
 });
 
 // Init Plugins
@@ -64,7 +64,7 @@ function addFileInput() {
       Adjunte el otro archivo
     </label>
     <div class="d-flex flex-row align-items-start">
-      <input type="file" name="formFile[]" class="form-control file-input" />
+      <input type="file" name="attachDocuments" class="form-control file-input" />
       <button type="button" onclick="handleRemove(event)" class="btn btn-outline-danger ms-1">Quitar</button>
     </div>
 

@@ -20,7 +20,11 @@ const fileStorage = multer.diskStorage({
   }
 });
 
-router.use(multer({storage:fileStorage}).single("formFile"));
+const upload = multer({storage:fileStorage});
+
+//router.use(multer({storage:fileStorage}).single("formFile"));
+
+//router.use(multer({ dest: 'uploads/' }).array("attachDocuments", 10));
 
 //router.use(/\/api/, apiRouter);
 
@@ -30,8 +34,18 @@ router.use(multer({storage:fileStorage}).single("formFile"));
 
 router.get("/", formController.getForm);
 
+router.post("/submit-data-fake",  (req,res,next) => {
+  res.json({msg: "success"});
+});
 
-router.post("/submit-data", formController.processSubmit);
+router.post("/submit-data", upload.fields(
+  [
+    {name:"formFile", maxCount:1},
+    {name: "attachDocuments", maxCount: 30}
+  ]), 
+  
+  formController.processSubmit
+);
 
 
 module.exports = router;

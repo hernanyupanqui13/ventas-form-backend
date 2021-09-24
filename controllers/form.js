@@ -59,18 +59,36 @@ exports.processSubmit= async (req, res, next) => {
     },
     // Here we are adding the 5 hours of the timezone in Peru. That stores the datetime in UTC on database. 
     //This is to avoid sustracting 5 hours of the date when we make requests 
-    serviceDate: new Date( Date.parse(req.body["service-date"]) + 5*60*60*1000)
+    serviceDate: new Date( Date.parse(req.body["service-date"]) + 5*60*60*1000),
+    //attachments: []
   });
 
   if(req.file) {
     console.log(req.file, "there is a file");
     formAnswer.billing.receiptPath = req.file.path.replace(/\\/g, "/");
   } 
-  
 
-  console.log(formAnswer, "form answerr");
+  console.log(formAnswer)
+
+  if(req.files) {    
+    // Attaching receipt
+    formAnswer.billing.receiptPath = req.files["formFile"][0].path.replace(/\\/g, "/");
+
+    // Attaching other documents 
+    const attachments = [];
+
+    for(let file of req.files["attachDocuments"]) {
+      attachments.push({path: file.path.replace(/\\/g, "/")});
+    }
+
+    formAnswer.attachedDocuments = attachments;
+    
+  }
+
 
   await formAnswer.save();
+  console.log(formAnswer, "form answerr");
+
 
   // Sending email
   const receiver = [
@@ -100,15 +118,20 @@ exports.processSubmit= async (req, res, next) => {
       to:receiver,
       bcc: "hernan.yupanqui.prieto@gmail.com",
       subject:subject,
-      html: str
+      html: str,
+      attachments: []
     };
 
+    // Atachments
     if(formAnswer.billing.receiptPath) {
-      mailOptions.attachments = [{path: `./${formAnswer.billing.receiptPath}`}];
+      mailOptions.attachments.push({path: `./${formAnswer.billing.receiptPath}`});
     }
 
-    console.log(mailOptions); 
-    
+    for(let file of formAnswer.attachedDocuments) {
+      mailOptions.attachments.push({path: `./${file.path}`});
+    }
+
+      
     // Sending email
     transporter.sendMail(mailOptions, (err, info) => {
       if (err) {

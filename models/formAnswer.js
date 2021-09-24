@@ -36,7 +36,11 @@ const FormAnswer = new Schema({
   registeredOn: {
     type: Date,
     default: Date.now
-  }
+  },
+
+  attachedDocuments: [
+    {path: String}
+  ]
   
 });
 
