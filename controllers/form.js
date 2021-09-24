@@ -41,7 +41,8 @@ exports.processSubmit= async (req, res, next) => {
       name: req.body["nombre-contacto"],
       phoneNumber: req.body["celular-contacto"],
       district: req.body.distrito,
-      addressAndReference: req.body["direccio-y-ref"],
+      address: req.body["direccion"],
+      addressReference: req.body["direccion-referencia"],
       pacientQuantity: req.body["cantidad-pacientes"],
       typeExam: typeExams[req.body["tipo-prueba"]-1],
     }, 
@@ -66,23 +67,28 @@ exports.processSubmit= async (req, res, next) => {
   if(req.file) {
     console.log(req.file, "there is a file");
     formAnswer.billing.receiptPath = req.file.path.replace(/\\/g, "/");
-  } 
+  }
 
   console.log(formAnswer)
-
-  if(req.files) {    
+  
+  // Ensuring that there are files in the form answers
+  if(req.files) {
     // Attaching receipt
-    formAnswer.billing.receiptPath = req.files["formFile"][0].path.replace(/\\/g, "/");
-
-    // Attaching other documents 
-    const attachments = [];
-
-    for(let file of req.files["attachDocuments"]) {
-      attachments.push({path: file.path.replace(/\\/g, "/")});
+    if(req.files["formFile"]) {    
+      formAnswer.billing.receiptPath = req.files["formFile"][0].path.replace(/\\/g, "/");
+      
     }
-
-    formAnswer.attachedDocuments = attachments;
     
+    // Attaching other documents 
+    if(req.files["attachDocuments"]) {
+      const attachments = [];
+
+      for(let file of req.files["attachDocuments"]) {
+        attachments.push({path: file.path.replace(/\\/g, "/")});
+      }
+
+      formAnswer.attachedDocuments = attachments;
+    }
   }
 
 
@@ -145,7 +151,7 @@ exports.processSubmit= async (req, res, next) => {
         console.log("Email send: " + info.response);
         const response = {msg: "El correo fue enviado con éxito", error: err, state:"Success"};
         
-        res.json(formAnswer);
+        res.json(response);
       }
     });
 

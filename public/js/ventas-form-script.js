@@ -8,12 +8,28 @@ nextBtn.addEventListener( "click", event => {
   document.querySelector("#form-part-2-tab").click();
 });
 
+// // To check all the errors in the first tab of the form
+// document.querySelector("#form-part-2-tab").addEventListener("click", event => {
+//   if( !document.forms[0].checkValidity() ) {
+//     document.forms[0].submit();
+//   }
+// });
+
 prevBtn.addEventListener("click", event => {
   document.querySelector("#form-part-1-tab").click();
 });
 
 mainForm.addEventListener("submit", async event => {
   event.preventDefault();
+  console.log(document.forms[0].checkValidity());
+
+  if( !document.querySelector("#service-date").value ) {
+    console.log("incorrect form sub");
+    new AWN().warning("Llene la fecha de servicio");
+    return false;
+  } 
+
+
   console.log("form submitted");
 
   const formData = new FormData(mainForm);
